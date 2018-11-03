@@ -15,4 +15,5 @@
         completions."
     </string>
     <string name="title_activity_page1">Page1</string>
+    <string name="title_activity_car_input">CarInputActivity</string>
 </resources>

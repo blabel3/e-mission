@@ -23,7 +23,22 @@
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name="com.abnc.emission.Page1"
-                android:label="@string/title_activity_page1"
+                android:label="@string/title_activity_page1"/>
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".CarInputActivity"
+                android:label="@string/title_activity_car_input"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name="com.abnc.emission.CarInputActivity"
+                android:label="@string/title_activity_car_input"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
