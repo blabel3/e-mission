@@ -7,33 +7,14 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/activity_car_input"
-        tools:context=".CarInputActivity">
+        tools:context=".CarInputActivity" android:background="@color/projectGreen">
 
-    <AutoCompleteTextView
-            android:text="Make"
+    <Spinner
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/makeInput" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="16dp" android:layout_marginStart="16dp"/>
-    <AutoCompleteTextView
-            android:text="Model"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/modelInput" app:layout_constraintStart_toEndOf="@+id/makeInput"
-            android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-            app:layout_constraintTop_toTopOf="@+id/makeInput"
-            app:layout_constraintBottom_toBottomOf="@+id/makeInput"
-            app:layout_constraintEnd_toStartOf="@+id/yearInput" android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp" android:layout_marginTop="8dp"/>
-    <AutoCompleteTextView
-            android:text="Year"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/yearInput"
-            app:layout_constraintTop_toTopOf="@+id/modelInput"
-            app:layout_constraintBottom_toBottomOf="@+id/modelInput"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"/>
+            android:layout_height="wrap_content" android:id="@+id/makeSpinner"
+            tools:layout_editor_absoluteY="162dp" android:entries="@array/make_array"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp" android:background="@color/dropDownBackground"/>
 </android.support.constraint.ConstraintLayout>

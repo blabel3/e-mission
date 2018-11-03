@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="make_array">
+        <item>Make</item>
+    </string-array>
+
+    <string-array name="model_array">
+        <item>Model</item>
+    </string-array>
+
+    <string-array name="year_array">
+        <item>Year</item>
+    </string-array>
+
+</resources>
