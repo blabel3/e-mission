@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Savings" android:id="@+id/savings_option" android:icon="@drawable/ic_savings_black_24dp"/>
+    <item android:title="Trip" android:id="@+id/trip_option" android:icon="@drawable/ic_car_black_24dp"/>
+    <item android:title="Social" android:id="@+id/social_option" android:icon="@drawable/ic_social_black_24dp"/>
+</menu>
