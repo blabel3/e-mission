@@ -1,5 +1,22 @@
 {
   "carList": [
-    {"make": "", "model": "", "year": "", "price":"", "MPGe":""}
+    {"make": "Acura", "model": "", "year": "", "MPGe":""}
+    {"make": "Aston Martin", "model": "", "year": "", "MPGe":""}
+    {"make": "Chevy", "model": "", "year": "", "MPGe":""}
+    {"make": "", "model": "", "year": "", "MPGe":""}
+    {"make": "", "model": "", "year": "", "MPGe":""}
+    {"make": "", "model": "", "year": "", "MPGe":""}
+    {"make": "", "model": "", "year": "", "MPGe":""}
+    {"make": "", "model": "", "year": "", "MPGe":""}
+    {"make": "", "model": "", "year": "", "MPGe":""}
+    {"make": "", "model": "", "year": "", "MPGe":""}
+    {"make": "", "model": "", "year": "", "MPGe":""}
+    {"make": "", "model": "", "year": "", "MPGe":""}
+    {"make": "", "model": "", "year": "", "MPGe":""}
+    {"make": "", "model": "", "year": "", "MPGe":""}
+    {"make": "", "model": "", "year": "", "MPGe":""}
+
+
+
   ]
 }
