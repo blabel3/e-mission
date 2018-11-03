@@ -8,7 +8,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.emission.abnc.emission.R;
+
+import com.abnc.emission.R;
 
 public class DataVisualization extends Fragment {
 
