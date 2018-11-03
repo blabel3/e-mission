@@ -23,7 +23,18 @@
             android:name=".CarInputActivity"
             android:label="@string/title_activity_car_input"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".StartPageActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_start_page"
+            android:theme="@style/FullscreenTheme">
+            <!--intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter-->
+        </activity>
     </application>
 
 </manifest>
