@@ -2,13 +2,16 @@
 <resources>
     <string-array name="make_array">
         <item>Make</item>
+        <item>Tesla</item>
     </string-array>
 
     <string-array name="model_array">
         <item>Model</item>
+        <item>Model X</item>
     </string-array>
 
     <string-array name="year_array">
         <item>Year</item>
+        <item>2018</item>
     </string-array>
 </resources>
