@@ -13,15 +13,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:name="com.abnc.emission.ui.datavisualization.DataVisualization"
-                android:id="@+id/fragment" tools:layout_editor_absoluteX="16dp"
+                android:id="@+id/fragment"
                 app:layout_constraintBottom_toTopOf="@+id/main_navigation"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
         <android.support.design.widget.BottomNavigationView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" app:menu="@menu/menu_main_bottom"
+                android:layout_gravity="bottom"
                 app:itemIconTint="@color/projectGreen" android:id="@+id/main_navigation"
-                tools:layout_editor_absoluteX="0dp"
-                app:layout_constraintBottom_toBottomOf="parent" app:elevation="8dp">
+                app:layout_constraintBottom_toBottomOf="parent" app:elevation="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintDimensionRatio="w,1:1"
+        >
         </android.support.design.widget.BottomNavigationView>
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>
