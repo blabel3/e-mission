@@ -6,4 +6,6 @@
     <color name="projectGreen">#13a001</color>
     <color name="dropDownBackground">#ffffff</color>
     <color name="textPrimary">#ffffff</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>
