@@ -2,10 +2,10 @@
 <resources>
     <color name="colorPrimary">#13a001</color>
     <color name="colorPrimaryDark">#005709</color>
-    <color name="colorAccent">#d81b99</color>
+    <color name="colorAccent">#ffffff</color>
     <color name="projectGreen">#13a001</color>
     <color name="dropDownBackground">#ffffff</color>
-    <color name="textPrimary">#ffffff</color>
+    <color name="textPrimary">#000000</color>
 
     <color name="black_overlay">#66000000</color>
 </resources>
