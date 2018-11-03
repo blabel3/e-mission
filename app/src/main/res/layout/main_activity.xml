@@ -8,14 +8,14 @@
     <androidx.viewpager.widget.ViewPager
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <fragment
+        <!--fragment
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:name="com.abnc.emission.ui.datavisualization.DataVisualization"
                 android:id="@+id/fragment"
                 app:layout_constraintBottom_toTopOf="@+id/main_navigation"
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"/-->
     </androidx.viewpager.widget.ViewPager>
     <com.google.android.material.bottomnavigation.BottomNavigationView
             android:layout_width="match_parent"
@@ -27,9 +27,4 @@
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintDimensionRatio="w,1:1"
             style="@style/Widget.MaterialComponents.BottomNavigationView.Colored">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
