@@ -16,16 +16,16 @@ public class Car {
         this.MPG = MPG;
     }
 
-    public int getMPG() {
-        return MPG;
+    public String getMake() {
+        return make;
     }
 
     public int getYear() {
         return year;
     }
 
-    public String getMake() {
-        return make;
+    public int getMPG() {
+        return MPG;
     }
 
     public String getModel() {

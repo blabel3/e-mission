@@ -1,5 +1,7 @@
 package com.abnc.emission;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.*;
@@ -23,6 +25,8 @@ import java.util.ArrayList;
 
 public class CarInputActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private Button btnSubmit;
+
+    Context mContext = this;
 
     ArrayList<Car> cars;
 
@@ -86,12 +90,46 @@ public class CarInputActivity extends AppCompatActivity implements AdapterView.O
         yearAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, year);
 
 
-        ((Spinner)findViewById(R.id.makeSpinner)).setAdapter(makeAdapter);
-        ((Spinner)findViewById(R.id.makeSpinner)).setOnItemSelectedListener(this);
-        ((Spinner)findViewById(R.id.modelSpinner)).setAdapter(modelAdapter);
-        ((Spinner)findViewById(R.id.modelSpinner)).setOnItemSelectedListener(this);
-        ((Spinner)findViewById(R.id.yearSpinner)).setAdapter(yearAdapter);
-        ((Spinner)findViewById(R.id.yearSpinner)).setOnItemSelectedListener(this);
+        final Spinner makeSpinner = (Spinner)findViewById(R.id.makeSpinner);
+            makeSpinner.setAdapter(makeAdapter);
+            makeSpinner.setOnItemSelectedListener(this);
+        final Spinner modelSpinner = (Spinner)findViewById(R.id.modelSpinner);
+            modelSpinner.setAdapter(modelAdapter);
+            modelSpinner.setOnItemSelectedListener(this);
+        final Spinner yearSpinner = (Spinner)findViewById(R.id.yearSpinner);
+            yearSpinner.setAdapter(yearAdapter);
+            yearSpinner.setOnItemSelectedListener(this);
+
+        btnSubmit = (Button) findViewById(R.id.sbutton);
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Intent goToMain = new Intent(mContext, MainActivity.class);
+
+                Car theOne = new Car("Blake", "Kart", 2018, 195);
+
+                for(Car car : cars){
+                    if( makeSpinner.getSelectedItem().equals(car.getMake()) &&
+                            modelSpinner.getSelectedItem().equals(car.getModel()) &&
+                            yearSpinner.getSelectedItem().equals(car.getYear())){
+                        theOne = car;
+                    }
+                }
+
+                Bundle carBundle = new Bundle();
+                carBundle.putString("make", theOne.getMake());
+                carBundle.putString("model", theOne.getModel());
+                carBundle.putInt("year", theOne.getYear());
+
+                goToMain.putExtra("Car", carBundle);
+                startActivity(goToMain);
+
+            }
+
+        });
 
     }
 
@@ -196,36 +234,4 @@ public class CarInputActivity extends AppCompatActivity implements AdapterView.O
         // Another interface callback
     }
 
-
-    //    public void addListenerOnSpinnerItemSelection() {
-//        spinner1 = (Spinner) findViewById(R.id.makeSpinner);
-//        spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListener());
-//        spinner2 = (Spinner) findViewById(R.id.modelSpinner);
-//        spinner2.setOnItemSelectedListener(new CustomOnItemSelectedListener());
-//        spinner3 = (Spinner) findViewById(R.id.yearSpinner);
-//        spinner3.setOnItemSelectedListener(new CustomOnItemSelectedListener());
-//    }
-    public void addListenerOnButton() {
-
-        final Spinner spinner1 = (Spinner) findViewById(R.id.makeSpinner);
-        final Spinner spinner2 = (Spinner) findViewById(R.id.modelSpinner);
-        final Spinner spinner3 = (Spinner) findViewById(R.id.yearSpinner);
-        btnSubmit = (Button) findViewById(R.id.sbutton);
-
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                Toast.makeText(CarInputActivity.this,
-                        "OnClickListener : " +
-                                "\nSpinner 1 : " + String.valueOf(spinner1.getSelectedItem()) +
-                                "\nSpinner 2 : " + String.valueOf(spinner2.getSelectedItem())+
-                                "\nSpinner 3 : " + String.valueOf(spinner3.getSelectedItem()),
-                        Toast.LENGTH_SHORT).show();
-            }
-
-        });
-
-    }
 }
