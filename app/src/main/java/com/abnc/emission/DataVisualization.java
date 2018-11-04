@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +24,11 @@ public class DataVisualization extends androidx.fragment.app.Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private static Bundle maybe;
+
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private int mParam1;
+    private Bundle mParam2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -42,12 +45,13 @@ public class DataVisualization extends androidx.fragment.app.Fragment {
      * @return A new instance of fragment DataVisualization.
      */
     // TODO: Rename and change types and number of parameters
-    public static DataVisualization newInstance(int position, String param2) {
+    public static DataVisualization newInstance(int position, Bundle param2) {
         DataVisualization fragment = new DataVisualization();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM1, position);
-        args.putString(ARG_PARAM2, param2);
+        args.putBundle(ARG_PARAM2, param2);
         fragment.setArguments(args);
+        maybe = param2;
         return fragment;
     }
 
@@ -55,9 +59,11 @@ public class DataVisualization extends androidx.fragment.app.Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mParam1 = getArguments().getInt(ARG_PARAM1);
+            mParam2 = getArguments().getBundle(ARG_PARAM2);
         }
+
+        Log.e("CarMAKE", mParam2.getString("make"));
 
     }
 

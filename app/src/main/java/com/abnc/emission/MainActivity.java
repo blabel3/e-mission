@@ -56,8 +56,8 @@ public class MainActivity extends FragmentActivity implements DataVisualization.
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         //DataVisualization dataVisFragment = new DataVisualization();
-        fragmentTransaction.add(R.id.fragment_holder, new DataVisualization());
-        fragmentTransaction.add(R.id.fragment_holder, new Trip());
+        fragmentTransaction.add(R.id.fragment_holder, DataVisualization.newInstance(0, carData));
+        fragmentTransaction.add(R.id.fragment_holder, Trip.newInstance("one", "test"));
         fragmentTransaction.commit();    //FOR CHANGING FRAGMENTS*/
 
         mAdapter = new MyAdapter(fragmentManager);
@@ -187,7 +187,7 @@ public class MainActivity extends FragmentActivity implements DataVisualization.
                 null /* Looper */);
     }
 
-    public static class MyAdapter extends FragmentPagerAdapter {
+    public class MyAdapter extends FragmentPagerAdapter {
 
         private ArrayList<Fragment> fragments;
 
@@ -205,7 +205,9 @@ public class MainActivity extends FragmentActivity implements DataVisualization.
             //return ArrayListFragment.newInstance(position);
             //return fragments.get(position);
             if(position == 0) {
-                return DataVisualization.newInstance(position, null);
+                Log.e("CARMAKE", carData.getString("make"));
+                Log.e("CaRmAkE", carData.toString());
+                return DataVisualization.newInstance(position, carData);
             } else {
                 return Trip.newInstance(Integer.toString(position), null);
 

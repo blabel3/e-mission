@@ -147,8 +147,6 @@ public class CarInputActivity extends AppCompatActivity implements AdapterView.O
             @Override
             public void onClick(View v) {
 
-                Intent goToMain = new Intent(mContext, MainActivity.class);
-
                 Car theOne = new Car("Blake", "Kart", 2018, 195);
                 ElectricCar theTwo = new ElectricCar("eBlake", "Bike", 2048, 151, 420);
 
@@ -174,12 +172,15 @@ public class CarInputActivity extends AppCompatActivity implements AdapterView.O
                 carBundle.putInt("year", theOne.getYear());
                 carBundle.putInt("mpg", theOne.getMPG());
 
+                Log.e("carmake", theOne.getMake());
+
                 carBundle.putString("eMake", theTwo.getMake());
                 carBundle.putString("eModel", theTwo.getModel());
                 carBundle.putInt("eYear", theTwo.getYear());
                 carBundle.putInt("empg", theTwo.getMPG());
                 carBundle.putInt("price", theTwo.getPricePoint());
 
+                Intent goToMain = new Intent(mContext, MainActivity.class);
 
                 goToMain.putExtra("Cars", carBundle);
                 startActivity(goToMain);
