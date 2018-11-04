@@ -29,7 +29,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="262dp"/>
+            tools:layout_editor_absoluteY="262dp" android:layoutAnimation="@android:anim/fade_in"/>
 
     <Spinner
             android:id="@+id/modelSpinner"
@@ -44,7 +44,7 @@
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/makeSpinner"
-            android:textAlignment="center"/>
+            android:textAlignment="center" android:layoutAnimation="@android:anim/fade_in"/>
 
     <Spinner
             android:id="@+id/yearSpinner"
@@ -56,7 +56,8 @@
             android:entries="@array/year_array"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="32dp"
-            app:layout_constraintTop_toBottomOf="@+id/modelSpinner" android:textAlignment="center"/>
+            app:layout_constraintTop_toBottomOf="@+id/modelSpinner" android:textAlignment="center"
+            android:layoutAnimation="@android:anim/fade_in"/>
 
     <ImageView
             android:id="@+id/imageView4"
