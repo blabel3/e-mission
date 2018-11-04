@@ -8,7 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
+
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,13 +25,10 @@ public class DataVisualization extends androidx.fragment.app.Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    private static Bundle maybe;
 
     // TODO: Rename and change types of parameters
-    private int mParam1;
-    private Bundle mParam2;
+    private Bundle mParam1;
 
     private OnFragmentInteractionListener mListener;
 
@@ -45,13 +45,11 @@ public class DataVisualization extends androidx.fragment.app.Fragment {
      * @return A new instance of fragment DataVisualization.
      */
     // TODO: Rename and change types and number of parameters
-    public static DataVisualization newInstance(int position, Bundle param2) {
+    public static DataVisualization newInstance(Bundle param1) {
         DataVisualization fragment = new DataVisualization();
         Bundle args = new Bundle();
-        args.putInt(ARG_PARAM1, position);
-        args.putBundle(ARG_PARAM2, param2);
+        args.putBundle(ARG_PARAM1, param1);
         fragment.setArguments(args);
-        maybe = param2;
         return fragment;
     }
 
@@ -59,18 +57,78 @@ public class DataVisualization extends androidx.fragment.app.Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getInt(ARG_PARAM1);
-            mParam2 = getArguments().getBundle(ARG_PARAM2);
+            mParam1 = getArguments().getBundle(ARG_PARAM1);
         }
-
-        Log.e("CarMAKE", mParam2.getString("make"));
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.data_visualization_fragment, container, false);
+
+        View inf = inflater.inflate(R.layout.data_visualization_fragment, container, false);
+
+        Log.e("DATAAAAA", mParam1.toString());
+
+        final Car gasCar = new Car(mParam1.getString("make"),
+                mParam1.getString("model"),
+                mParam1.getInt("year"),
+                mParam1.getInt("mpg"));
+        final ElectricCar eCar = new ElectricCar(mParam1.getString("eMake"),
+                mParam1.getString("eModel"),
+                mParam1.getInt("eYear"),
+                mParam1.getInt("empg"),
+                mParam1.getInt("price"));
+
+
+
+        TextView subtitle = (TextView) inf.findViewById(R.id.subtext_car);
+
+        final TextView daySavingsView = inf.findViewById(R.id.day_savings);
+        final TextView yearSavingsView = inf.findViewById(R.id.year_savings);
+        final TextView monthSavingsView = inf.findViewById(R.id.month_savings);
+
+        final TextView mileage = inf.findViewById(R.id.mileage);
+
+        SeekBar distanceBar = inf.findViewById(R.id.distance_slider);
+
+        distanceBar.setMax(100);
+        distanceBar.setMin(1);
+        distanceBar.setProgress(65);
+
+        distanceBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                int distance = i;
+
+                double gasPrice = 2.8 * distance / gasCar.getMPG();
+                double electricPrice = 1.15 * distance / eCar.getMPG();
+
+                String daySavings = String.format(Locale.getDefault(), "%.2f", (gasPrice - electricPrice));
+                String yearSavings = String.format(Locale.getDefault(), "%.2f", (gasPrice - electricPrice) * 365);
+                String monthSavings = String.format(Locale.getDefault(), "%.2f", (gasPrice - electricPrice) * 365 / 12);
+
+                daySavingsView.setText(daySavings);
+                yearSavingsView.setText(yearSavings);
+                monthSavingsView.setText(monthSavings);
+                mileage.setText(String.format(Locale.getDefault(), "%d", distance));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        String carDescripton = "if you drove the " + eCar.getModel() + " instead of the " + gasCar.getModel();
+        subtitle.setText(carDescripton);
+
+        return inf;
 
     }
 

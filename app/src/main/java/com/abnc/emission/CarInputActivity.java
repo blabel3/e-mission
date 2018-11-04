@@ -152,19 +152,20 @@ public class CarInputActivity extends AppCompatActivity implements AdapterView.O
 
                 for(Car car : cars){
                     if( makeSpinner.getSelectedItem().equals(car.getMake()) &&
-                            modelSpinner.getSelectedItem().equals(car.getModel()) &&
-                            yearSpinner.getSelectedItem().equals(car.getYear())){
+                            modelSpinner.getSelectedItem().equals(car.getModel()) ){
                         theOne = car;
                     }
                 }
 
                 for(ElectricCar eCar : eCars){
                     if( eMakeSpinner.getSelectedItem().equals(eCar.getMake()) &&
-                            eModelSpinner.getSelectedItem().equals(eCar.getModel()) &&
-                            eYearSpinner.getSelectedItem().equals(eCar.getYear())){
-                        theOne = eCar;
+                            eModelSpinner.getSelectedItem().equals(eCar.getModel()) ){
+                        theTwo = eCar;
                     }
                 }
+
+                Log.e("VROOOOOM", theOne.toString());
+                Log.e("VROOOOOM", theTwo.toString());
 
                 Bundle carBundle = new Bundle();
                 carBundle.putString("make", theOne.getMake());

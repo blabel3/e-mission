@@ -1,5 +1,7 @@
 package com.abnc.emission;
 
+import androidx.annotation.NonNull;
+
 public class Car {
 
     private String make;
@@ -48,4 +50,9 @@ public class Car {
         this.year = year;
     }
 
+    @NonNull
+    @Override
+    public String toString() {
+        return "make:" + make + " model: " + model + " year: " + year + " mpg " + MPG;
+    }
 }
