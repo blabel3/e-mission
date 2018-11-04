@@ -66,7 +66,7 @@
 			android:text="Submit"
 			android:layout_width="135dp"
 			android:layout_height="wrap_content"
-			android:id="@+id/button" android:elevation="3dp"
+			android:id="@+id/sbutton" android:elevation="3dp"
 			android:textColor="@color/common_google_signin_btn_text_dark_focused" android:textAllCaps="false"
 			app:cornerRadius="@dimen/big_logo_height" android:fontFamily="@font/nexa_light"
 			app:layout_constraintEnd_toEndOf="@+id/yearSpinner"
