@@ -37,7 +37,7 @@ public class CarInputActivity extends AppCompatActivity {
         addItemsOnmakeSpinner();
         addItemsOnyearSpinner();
         addListenerOnButton();
-        addListenerOnSpinnerItemSelection();
+       // addListenerOnSpinnerItemSelection();
 
     }
     public void addItemsOnmakeSpinner() {
@@ -77,14 +77,14 @@ public class CarInputActivity extends AppCompatActivity {
         spinner3.setAdapter(dataAdapter);
     }
 
-    public void addListenerOnSpinnerItemSelection() {
-        spinner1 = (Spinner) findViewById(R.id.makeSpinner);
-        spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListener());
-        spinner2 = (Spinner) findViewById(R.id.modelSpinner);
-        spinner2.setOnItemSelectedListener(new CustomOnItemSelectedListener());
-        spinner3 = (Spinner) findViewById(R.id.yearSpinner);
-        spinner3.setOnItemSelectedListener(new CustomOnItemSelectedListener());
-    }
+//    public void addListenerOnSpinnerItemSelection() {
+//        spinner1 = (Spinner) findViewById(R.id.makeSpinner);
+//        spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+//        spinner2 = (Spinner) findViewById(R.id.modelSpinner);
+//        spinner2.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+//        spinner3 = (Spinner) findViewById(R.id.yearSpinner);
+//        spinner3.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+//    }
     public void addListenerOnButton() {
 
         spinner1 = (Spinner) findViewById(R.id.makeSpinner);
