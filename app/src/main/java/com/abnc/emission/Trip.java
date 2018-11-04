@@ -1,12 +1,23 @@
 package com.abnc.emission;
 
 import android.content.Context;
+import android.content.IntentSender;
+import android.location.Location;
+import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import androidx.annotation.NonNull;
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.location.*;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 
 
 /**
@@ -28,6 +39,14 @@ public class Trip extends androidx.fragment.app.Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private boolean locationsAllGood = false;
+
+    private FusedLocationProviderClient mFusedLocationClient;
+    private LocationRequest mLocationRequest;
+    private LocationCallback mLocationCallback;
+
+
 
     public Trip() {
         // Required empty public constructor
@@ -58,6 +77,84 @@ public class Trip extends androidx.fragment.app.Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+
+
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(1000);
+        mLocationRequest.setFastestInterval(10);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                .addLocationRequest(mLocationRequest);
+
+        SettingsClient client = LocationServices.getSettingsClient(getActivity());
+        Task<LocationSettingsResponse> task = client.checkLocationSettings(builder.build());
+
+
+
+        //Checks that location services are on
+
+        //They're on cool
+        task.addOnSuccessListener(this.getActivity(), new OnSuccessListener<LocationSettingsResponse>() {
+            @Override
+            public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
+                // All location settings are satisfied. The client can initialize
+                // location requests here.
+                // ...
+
+                locationsAllGood = true;
+
+            }
+        });
+
+        //Services are off, turn them on pls
+        task.addOnFailureListener(getActivity(), new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                if (e instanceof ResolvableApiException) {
+                    // Location settings are not satisfied, but this can be fixed
+                    // by showing the user a dialog.
+                    try {
+                        // Show the dialog by calling startResolutionForResult(),
+                        // and check the result in onActivityResult().
+                        ResolvableApiException resolvable = (ResolvableApiException) e;
+                        resolvable.startResolutionForResult(getActivity(),
+                                0x1);
+
+                    } catch (IntentSender.SendIntentException sendEx) {
+                        // Ignore the error.
+                    }
+                }
+            }
+        });
+
+        //THis homie continuously requests location
+        mLocationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    return;
+                }
+                for (Location location : locationResult.getLocations()) {
+                    // Update UI with location data
+                    ((TextView)getActivity().findViewById(R.id.trip_header)).setText(location.toString());
+                }
+            };
+        };
+
+
+        if(locationsAllGood){
+            startLocationUpdates();
+        }
+    }
+
+
+    private void startLocationUpdates() {
+        mFusedLocationClient.requestLocationUpdates(mLocationRequest,
+                mLocationCallback,
+                null /* Looper */);
     }
 
     @Override

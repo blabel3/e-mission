@@ -19,7 +19,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends FragmentActivity implements DataVisualization.OnFragmentInteractionListener, Trip.OnFragmentInteractionListener {
+public class MainActivity extends FragmentActivity implements DataVisualization.OnFragmentInteractionListener,
+        Trip.OnFragmentInteractionListener {
 
     static final int NUM_ITEMS = 3;
 
