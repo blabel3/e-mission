@@ -3,6 +3,7 @@ package com.abnc.emission;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.ScriptGroup;
 import android.util.Log;
 import android.widget.*;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -15,12 +16,12 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.*;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class CarInputActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -29,10 +30,15 @@ public class CarInputActivity extends AppCompatActivity implements AdapterView.O
     Context mContext = this;
 
     ArrayList<Car> cars;
+    ArrayList<ElectricCar> eCars;
 
     ArrayAdapter<String> makeAdapter;
     ArrayAdapter<String> modelAdapter;
     ArrayAdapter<String> yearAdapter;
+
+    ArrayAdapter<String> eMakeAdapter;
+    ArrayAdapter<String> eModelAdapter;
+    ArrayAdapter<String> eYearAdapter;
 
 
     @Override
@@ -42,13 +48,19 @@ public class CarInputActivity extends AppCompatActivity implements AdapterView.O
 
         cars = new ArrayList<>(0);
 
+        eCars = new ArrayList<>(0);
+
         try{
             InputStream carStream = getAssets().open("carData.json");
             cars = DataParser.readJSON(carStream);
+            carStream.close();
+            InputStream eCarStream = getAssets().open("eCarData.json");
+            eCars = DataParser.readJSON2(eCarStream);
         } catch (IOException oops){
             Log.e("FileError", oops.toString());
         }
 
+        //GAS CARS
         ArrayList<String> make = new ArrayList<>(0);
         ArrayList<String> model = new ArrayList<>(0);
         ArrayList<String> year = new ArrayList<>(0);
@@ -78,16 +90,55 @@ public class CarInputActivity extends AppCompatActivity implements AdapterView.O
         modelAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, model);
         yearAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, year);
 
-
         final Spinner makeSpinner = (Spinner)findViewById(R.id.makeSpinner);
-            makeSpinner.setAdapter(makeAdapter);
-            makeSpinner.setOnItemSelectedListener(this);
+        makeSpinner.setAdapter(makeAdapter);
+        makeSpinner.setOnItemSelectedListener(this);
         final Spinner modelSpinner = (Spinner)findViewById(R.id.modelSpinner);
-            modelSpinner.setAdapter(modelAdapter);
-            modelSpinner.setOnItemSelectedListener(this);
+        modelSpinner.setAdapter(modelAdapter);
+        modelSpinner.setOnItemSelectedListener(this);
         final Spinner yearSpinner = (Spinner)findViewById(R.id.yearSpinner);
-            yearSpinner.setAdapter(yearAdapter);
-            yearSpinner.setOnItemSelectedListener(this);
+        yearSpinner.setAdapter(yearAdapter);
+        yearSpinner.setOnItemSelectedListener(this);
+
+        //ELECTRIC CARS
+        ArrayList<String> eMake = new ArrayList<>(0);
+        ArrayList<String> eModel = new ArrayList<>(0);
+        ArrayList<String> eYear = new ArrayList<>(0);
+
+        for(ElectricCar eCar : eCars){
+            eMake.add(eCar.getMake());
+            eModel.add(eCar.getModel());
+            eYear.add(Integer.toString(eCar.getYear()));
+        }
+
+        Set<String> eMakeSet = new HashSet<>();
+        eMakeSet.addAll(eMake);
+        eMake.clear();
+        eMake.addAll(eMakeSet);
+
+        Set<String> eModelSet = new HashSet<>();
+        eModelSet.addAll(eModel);
+        eModel.clear();
+        eModel.addAll(eModelSet);
+
+        Set<String> eYearSet = new HashSet<>();
+        eYearSet.addAll(eYear);
+        eYear.clear();
+        eYear.addAll(eYearSet);
+
+        eMakeAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, eMake);
+        eModelAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, eModel);
+        eYearAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, eYear);
+
+        final Spinner eMakeSpinner = (Spinner)findViewById(R.id.electricMakeSpinner);
+        eMakeSpinner.setAdapter(eMakeAdapter);
+        eMakeSpinner.setOnItemSelectedListener(this);
+        final Spinner eModelSpinner = (Spinner)findViewById(R.id.electricModelSpinner);
+        eModelSpinner.setAdapter(eModelAdapter);
+        eModelSpinner.setOnItemSelectedListener(this);
+        final Spinner eYearSpinner = (Spinner)findViewById(R.id.electricYearSpinner);
+        eYearSpinner.setAdapter(eYearAdapter);
+        eYearSpinner.setOnItemSelectedListener(this);
 
         btnSubmit = (Button) findViewById(R.id.sbutton);
 
@@ -99,6 +150,7 @@ public class CarInputActivity extends AppCompatActivity implements AdapterView.O
                 Intent goToMain = new Intent(mContext, MainActivity.class);
 
                 Car theOne = new Car("Blake", "Kart", 2018, 195);
+                ElectricCar theTwo = new ElectricCar("eBlake", "Bike", 2048, 151, 420);
 
                 for(Car car : cars){
                     if( makeSpinner.getSelectedItem().equals(car.getMake()) &&
@@ -108,12 +160,28 @@ public class CarInputActivity extends AppCompatActivity implements AdapterView.O
                     }
                 }
 
+                for(ElectricCar eCar : eCars){
+                    if( eMakeSpinner.getSelectedItem().equals(eCar.getMake()) &&
+                            eModelSpinner.getSelectedItem().equals(eCar.getModel()) &&
+                            eYearSpinner.getSelectedItem().equals(eCar.getYear())){
+                        theOne = eCar;
+                    }
+                }
+
                 Bundle carBundle = new Bundle();
                 carBundle.putString("make", theOne.getMake());
                 carBundle.putString("model", theOne.getModel());
                 carBundle.putInt("year", theOne.getYear());
+                carBundle.putInt("mpg", theOne.getMPG());
 
-                goToMain.putExtra("Car", carBundle);
+                carBundle.putString("eMake", theTwo.getMake());
+                carBundle.putString("eModel", theTwo.getModel());
+                carBundle.putInt("eYear", theTwo.getYear());
+                carBundle.putInt("empg", theTwo.getMPG());
+                carBundle.putInt("price", theTwo.getPricePoint());
+
+
+                goToMain.putExtra("Cars", carBundle);
                 startActivity(goToMain);
 
             }
@@ -173,28 +241,49 @@ public class CarInputActivity extends AppCompatActivity implements AdapterView.O
                 yearAdapter.addAll(years);
 
                 break;
-            case R.id.yearSpinner:
 
-                /*String year = makeAdapter.getItem(pos);
+            case R.id.electricMakeSpinner:
 
-                makeAdapter.clear();
-                yearAdapter.clear();
+                String eMake = eMakeAdapter.getItem(pos);
 
-                makes = new HashSet<>(0);
+                eModelAdapter.clear();
+                eYearAdapter.clear();
+
+                models = new HashSet<>(0);
                 years = new HashSet<>(0);
 
 
-                for(Car car : cars){
-                    if(year.equals(car.getMake())){
-                        makes.add(car.getModel());
+                for(Car car : eCars){
+                    if(eMake.equals(car.getMake())){
+                        models.add(car.getModel());
                         years.add(Integer.toString(car.getYear()));
                     }
                 }
 
-                modelAdapter.addAll(makes);
-                yearAdapter.addAll(years);
+                eModelAdapter.addAll(models);
+                eYearAdapter.addAll(years);
 
-                break; */
+                Log.e("Options", "make");
+
+
+                break;
+            case R.id.electricModelSpinner:
+
+                String eModel = eMakeAdapter.getItem(pos);
+
+                eYearAdapter.clear();
+
+                years = new HashSet<>(0);
+
+                for(Car car : eCars){
+                    if(eModel.equals((car.getMake()))){
+                        years.add(Integer.toString(car.getYear()));
+                    }
+                }
+
+                eYearAdapter.addAll(years);
+
+                break;
         }
 
     }

@@ -1,5 +1,7 @@
 package com.abnc.emission;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -26,6 +28,9 @@ public class Page1 extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });*/
+
+        Intent moveOn = new Intent(this, CarInputActivity.class);
+        startActivity(moveOn);
     }
 
     @Override

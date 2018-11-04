@@ -37,6 +37,8 @@ public class MainActivity extends FragmentActivity implements DataVisualization.
 
     ViewPager mPager;
 
+    private Bundle carData;
+
     private boolean locationsAllGood = false;
 
     private FusedLocationProviderClient mFusedLocationClient;
@@ -47,6 +49,8 @@ public class MainActivity extends FragmentActivity implements DataVisualization.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+
+        carData = getIntent().getBundleExtra("Cars");
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -204,6 +208,7 @@ public class MainActivity extends FragmentActivity implements DataVisualization.
                 return DataVisualization.newInstance(position, null);
             } else {
                 return Trip.newInstance(Integer.toString(position), null);
+
             }
         }
     }
