@@ -44,7 +44,6 @@
 			android:text="Volunteer View"
 			android:textColor="@android:color/black"
 			android:textSize="18sp"
-			app:layout_constraintBottom_toTopOf="@+id/textView6"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"

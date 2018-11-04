@@ -30,6 +30,18 @@
 				app:layout_constraintEnd_toEndOf="@+id/view2" app:layout_constraintBottom_toBottomOf="@+id/view2"
 				android:fontFamily="@font/font_nexa"/>
 	</androidx.constraintlayout.widget.ConstraintLayout>
+	<androidx.viewpager.widget.ViewPager
+			android:layout_width="match_parent"
+			android:layout_height="match_parent" android:id="@+id/fragment_holder">
+		<!--fragment
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:name="com.abnc.emission.ui.datavisualization.DataVisualization"
+				android:id="@+id/fragment"
+				app:layout_constraintBottom_toTopOf="@+id/main_navigation"
+				app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"/-->
+	</androidx.viewpager.widget.ViewPager>
 	<com.google.android.material.bottomnavigation.BottomNavigationView
             android:layout_width="match_parent"
             android:layout_height="wrap_content" app:menu="@menu/menu_main_bottom"
