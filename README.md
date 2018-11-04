@@ -6,5 +6,5 @@ WHACK 2018 Project by Blake, Naomi, Cat, and Abdur
 
 Reduce emissions, have a blast. 
 
-[car-screen]: car-select-screen.jpg
-[savings]: savings-screen.jpg
+[car-screen]: small-car-select-screen.jpg
+[savings]: small-savings-screen.jpg
