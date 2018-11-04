@@ -90,7 +90,7 @@ public class MainActivity extends FragmentActivity implements DataVisualization.
         public Fragment getItem(int position) {
             //return ArrayListFragment.newInstance(position);
             //return fragments.get(position);
-            if(position ==0) {
+            if(position == 0) {
                 return new DataVisualization();
             } else {
                 return new Trip();

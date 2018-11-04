@@ -8,6 +8,7 @@ import android.location.LocationProvider;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -139,15 +140,21 @@ public class Trip extends androidx.fragment.app.Fragment {
                 }
                 for (Location location : locationResult.getLocations()) {
                     // Update UI with location data
-                    ((TextView)getActivity().findViewById(R.id.trip_header)).setText(location.toString());
+                    //((TextView)getActivity().findViewById(R.id.trip_header)).setText(location.toString());
                 }
             };
         };
 
+        //((TextView)getActivity().findViewById(R.id.trip_header)).setText(":(");
+        Log.e("ayo", "yuh");
 
         if(locationsAllGood){
             startLocationUpdates();
+            //((TextView)getActivity().findViewById(R.id.trip_header)).setText("Yay");
+            Log.e("ayo", "YUHHH");
+
         }
+
     }
 
 
