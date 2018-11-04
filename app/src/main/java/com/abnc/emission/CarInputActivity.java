@@ -2,22 +2,18 @@ package com.abnc.emission;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.widget.*;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -25,9 +21,15 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 
-public class CarInputActivity extends AppCompatActivity {
-    private Spinner spinner1, spinner2, spinner3;
+public class CarInputActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private Button btnSubmit;
+
+    ArrayList<Car> cars;
+
+    ArrayAdapter<String> makeAdapter;
+    ArrayAdapter<String> modelAdapter;
+    ArrayAdapter<String> yearAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,7 @@ public class CarInputActivity extends AppCompatActivity {
             }
         });
 
-        ArrayList<Car> cars = new ArrayList<>(0);
+        cars = new ArrayList<>(0);
 
         try{
             InputStream carStream = getAssets().open("carData.json");
@@ -64,30 +66,138 @@ public class CarInputActivity extends AppCompatActivity {
             year.add(Integer.toString(car.getYear()));
         }
 
-        ArrayAdapter<String> makeAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, make);
-        ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, model);
-        ArrayAdapter<String> yearAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, year);
+        Set<String> makeSet = new HashSet<>();
+        makeSet.addAll(make);
+        make.clear();
+        make.addAll(makeSet);
+
+        Set<String> modelSet = new HashSet<>();
+        modelSet.addAll(model);
+        model.clear();
+        model.addAll(modelSet);
+
+        Set<String> yearSet = new HashSet<>();
+        yearSet.addAll(year);
+        year.clear();
+        year.addAll(yearSet);
+
+        makeAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, make);
+        modelAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, model);
+        yearAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, year);
+
 
         ((Spinner)findViewById(R.id.makeSpinner)).setAdapter(makeAdapter);
+        ((Spinner)findViewById(R.id.makeSpinner)).setOnItemSelectedListener(this);
         ((Spinner)findViewById(R.id.modelSpinner)).setAdapter(modelAdapter);
+        ((Spinner)findViewById(R.id.modelSpinner)).setOnItemSelectedListener(this);
         ((Spinner)findViewById(R.id.yearSpinner)).setAdapter(yearAdapter);
+        ((Spinner)findViewById(R.id.yearSpinner)).setOnItemSelectedListener(this);
 
     }
 
-    public void addItemsOnyearSpinner() {
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
 
-        spinner3 = (Spinner) findViewById(R.id.yearSpinner);
-        List<String> list = new ArrayList<String>();
-        list.add("list 1");
-        list.add("list 2");
-        list.add("list 3");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, list);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner3.setAdapter(dataAdapter);
+        Set<String> makes;
+        Set<String> models;
+        Set<String> years;
+
+        switch(parent.getId()){
+            case R.id.makeSpinner:
+
+                String make = makeAdapter.getItem(pos);
+
+                modelAdapter.clear();
+                yearAdapter.clear();
+
+                models = new HashSet<>(0);
+                years = new HashSet<>(0);
+
+
+                for(Car car : cars){
+                    if(make.equals(car.getMake())){
+                        models.add(car.getModel());
+                        years.add(Integer.toString(car.getYear()));
+                    }
+                }
+
+                modelAdapter.addAll(models);
+                yearAdapter.addAll(years);
+
+                Log.e("Options", "make");
+
+
+                break;
+            case R.id.modelSpinner:
+
+                String model = makeAdapter.getItem(pos);
+
+                yearAdapter.clear();
+
+                years = new HashSet<>(0);
+
+                for(Car car : cars){
+                    if(model.equals((car.getMake()))){
+                        years.add(Integer.toString(car.getYear()));
+                    }
+                }
+
+                yearAdapter.addAll(years);
+
+                break;
+            case R.id.yearSpinner:
+
+                /*String year = makeAdapter.getItem(pos);
+
+                makeAdapter.clear();
+                yearAdapter.clear();
+
+                makes = new HashSet<>(0);
+                years = new HashSet<>(0);
+
+
+                for(Car car : cars){
+                    if(year.equals(car.getMake())){
+                        makes.add(car.getModel());
+                        years.add(Integer.toString(car.getYear()));
+                    }
+                }
+
+                modelAdapter.addAll(makes);
+                yearAdapter.addAll(years);
+
+                break; */
+        }
+
     }
 
-//    public void addListenerOnSpinnerItemSelection() {
+    public void onNothingSelected(AdapterView<?> parent) {
+
+        makeAdapter.clear();
+        modelAdapter.clear();
+        yearAdapter.clear();
+
+        Set<String> makes = new HashSet<>(0);
+        Set<String> models = new HashSet<>(0);
+        Set<String> years = new HashSet<>(0);
+
+
+        for(Car car : cars){
+            makes.add(car.getMake());
+            models.add(car.getModel());
+            years.add(Integer.toString(car.getYear()));
+        }
+
+        makeAdapter.addAll(makes);
+        modelAdapter.addAll(models);
+        yearAdapter.addAll(years);
+
+        // Another interface callback
+    }
+
+
+    //    public void addListenerOnSpinnerItemSelection() {
 //        spinner1 = (Spinner) findViewById(R.id.makeSpinner);
 //        spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListener());
 //        spinner2 = (Spinner) findViewById(R.id.modelSpinner);
@@ -97,8 +207,9 @@ public class CarInputActivity extends AppCompatActivity {
 //    }
     public void addListenerOnButton() {
 
-        spinner1 = (Spinner) findViewById(R.id.makeSpinner);
-        spinner2 = (Spinner) findViewById(R.id.modelSpinner);
+        final Spinner spinner1 = (Spinner) findViewById(R.id.makeSpinner);
+        final Spinner spinner2 = (Spinner) findViewById(R.id.modelSpinner);
+        final Spinner spinner3 = (Spinner) findViewById(R.id.yearSpinner);
         btnSubmit = (Button) findViewById(R.id.sbutton);
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +221,7 @@ public class CarInputActivity extends AppCompatActivity {
                         "OnClickListener : " +
                                 "\nSpinner 1 : " + String.valueOf(spinner1.getSelectedItem()) +
                                 "\nSpinner 2 : " + String.valueOf(spinner2.getSelectedItem())+
-                                "\nSpinner 2 : " + String.valueOf(spinner2.getSelectedItem()),
+                                "\nSpinner 3 : " + String.valueOf(spinner3.getSelectedItem()),
                         Toast.LENGTH_SHORT).show();
             }
 

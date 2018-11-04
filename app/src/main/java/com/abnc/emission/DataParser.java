@@ -39,8 +39,10 @@ public class DataParser {
         return more;
     }
 
-    public List<Car> readJSON(InputStream json) throws IOException {
+    public static ArrayList<Car> readJSON(InputStream json) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(json, "UTF-8"));
+
+        reader.setLenient(true);
 
         try {
             //reading the messages and returning a value
@@ -60,6 +62,8 @@ public class DataParser {
 
             reader.beginObject();
 
+            reader.nextName();
+
             return readCars(reader);
 
         } finally {
@@ -68,7 +72,7 @@ public class DataParser {
 
     }
 
-    public List<Car> readCars(JsonReader reader) throws IOException {
+    public static ArrayList<Car> readCars(JsonReader reader) throws IOException {
         ArrayList<Car> cars = new ArrayList<Car>();
 
         reader.beginArray();
@@ -82,7 +86,7 @@ public class DataParser {
         return cars;
     }
 
-    public Car readCar(JsonReader reader) throws IOException {
+    public static Car readCar(JsonReader reader) throws IOException {
         //all possible data to get from a deviation as variables
 
         String make = "";
