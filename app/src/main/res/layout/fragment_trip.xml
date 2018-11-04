@@ -46,6 +46,6 @@
               map:layout_constraintStart_toStartOf="parent"
               map:layout_constraintTop_toTopOf="parent"
               map:layout_constraintVertical_bias="1.0"
-              tools:context=".Trip" android:layout_marginStart="8dp"/>
+              tools:context=".MapActivity" android:layout_marginStart="8dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

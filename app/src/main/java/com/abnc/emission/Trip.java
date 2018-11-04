@@ -31,7 +31,7 @@ import com.google.android.gms.tasks.Task;
  * create an instance of this fragment.
  */
 public class Trip extends androidx.fragment.app.Fragment  {
-    private GoogleMap mMap;
+    //private GoogleMap mMap;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -160,16 +160,16 @@ public class Trip extends androidx.fragment.app.Fragment  {
         }
 
     }
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
-
-    }
+//    public void onMapReady(GoogleMap googleMap) {
+//        mMap = googleMap;
+//
+//        // Add a marker in Sydney and move the camera
+//        LatLng sydney = new LatLng(-34, 151);
+//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+//
+//
+//    }
 
 
     private void startLocationUpdates() {
