@@ -5,26 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity" >
-    <androidx.viewpager.widget.ViewPager
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        <!--fragment
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:name="com.abnc.emission.ui.datavisualization.DataVisualization"
-                android:id="@+id/fragment"
-                app:layout_constraintBottom_toTopOf="@+id/main_navigation"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/-->
-    </androidx.viewpager.widget.ViewPager>
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" app:menu="@menu/menu_main_bottom"
-            android:layout_gravity="bottom"
-            android:id="@+id/main_navigation"
-            app:layout_constraintBottom_toBottomOf="parent" app:elevation="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintDimensionRatio="w,1:1"
-            style="@style/Widget.MaterialComponents.BottomNavigationView.Colored">
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+	<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+		<com.google.android.material.bottomnavigation.BottomNavigationView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content" app:menu="@menu/menu_main_bottom"
+				android:layout_gravity="bottom"
+				android:id="@+id/main_navigation"
+				app:layout_constraintBottom_toBottomOf="parent" app:elevation="8dp"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toEndOf="parent" app:layout_constraintDimensionRatio="w,1:1"
+				style="@style/Widget.MaterialComponents.BottomNavigationView.Colored">
+		</com.google.android.material.bottomnavigation.BottomNavigationView>
+		<androidx.viewpager.widget.ViewPager
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/fragment_holder"
+				app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent">
+			<!--fragment
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:name="com.abnc.emission.ui.datavisualization.DataVisualization"
+					android:id="@+id/fragment"
+					app:layout_constraintBottom_toTopOf="@+id/main_navigation"
+					app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintEnd_toEndOf="parent"/-->
+		</androidx.viewpager.widget.ViewPager>
+	</androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
