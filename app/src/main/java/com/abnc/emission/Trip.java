@@ -11,10 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.*;
-import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -29,6 +31,8 @@ import com.google.android.gms.tasks.Task;
  * create an instance of this fragment.
  */
 public class Trip extends androidx.fragment.app.Fragment  {
+    private GoogleMap mMap;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -154,6 +158,16 @@ public class Trip extends androidx.fragment.app.Fragment  {
             Log.e("ayo", "YUHHH");
 
         }
+
+    }
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Add a marker in Sydney and move the camera
+        LatLng sydney = new LatLng(-34, 151);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
 
     }
 
